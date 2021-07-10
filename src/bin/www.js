@@ -17,19 +17,19 @@ const dubugHelper = debug('adminlte:server');
  */
 
 function normalizePort(val) {
-  const parsePort = parseInt(val, 10);
+    const parsePort = parseInt(val, 10);
 
-  if (Number.isNaN(parsePort)) {
+    if (Number.isNaN(parsePort)) {
     // named pipe
-    return val;
-  }
+        return val;
+    }
 
-  if (parsePort >= 0) {
+    if (parsePort >= 0) {
     // port number
-    return parsePort;
-  }
+        return parsePort;
+    }
 
-  return false;
+    return false;
 }
 
 /**
@@ -50,27 +50,27 @@ const server = http.createServer(app);
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
 
-  const bind = typeof port === 'string'
-    ? `Pipe ${port}`
-    : `Port ${port}`;
+    const bind = typeof port === 'string'
+        ? `Pipe ${port}`
+        : `Port ${port}`;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
-      process.exit(1);
-      break;
+        console.error(`${bind} requires elevated privileges`);
+        process.exit(1);
+        break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
-      process.exit(1);
-      break;
+        console.error(`${bind} is already in use`);
+        process.exit(1);
+        break;
     default:
-      throw error;
-  }
+        throw error;
+    }
 }
 
 /**
@@ -78,11 +78,11 @@ function onError(error) {
  */
 
 function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
-  dubugHelper(`Listening on ${bind}`);
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+        ? `pipe ${addr}`
+        : `port ${addr.port}`;
+    dubugHelper(`Listening on ${bind}`);
 }
 
 /**
@@ -90,7 +90,7 @@ function onListening() {
  */
 
 server.listen(port, () => {
-  console.log(`Server is listening on ${port}`);
+    console.log(`Server is listening on ${port}`);
 });
 server.on('error', onError);
 server.on('listening', onListening);

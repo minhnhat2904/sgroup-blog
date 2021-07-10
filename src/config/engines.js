@@ -2,9 +2,8 @@
 import * as express from 'express';
 import methodOverride from 'method-override';
 import cors from 'cors';
-import api from '../api';
+import { apiRouter } from '../api-rest';
 import { authenDatabaseConnection } from '../database';
-// import {authRouter} from '../api/auth/router';
 
 export class EngineConfig {
     /**
@@ -17,7 +16,7 @@ export class EngineConfig {
     /**
      * Initialize engines
      */
-    init() {
+    async bundle() {
         /**
          * Setup basic express
          */
@@ -41,12 +40,8 @@ export class EngineConfig {
                 return undefined;
             }),
         );
-        this.connectDatabase();
 
-        this.app.use('/api', api);
-    }
-
-    connectDatabase() {
-        authenDatabaseConnection();
+        this.app.use('/api', apiRouter);
+        await authenDatabaseConnection();
     }
 }

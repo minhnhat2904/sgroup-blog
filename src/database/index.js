@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import knex from 'knex';
 import config from '../../knexfile';
 import { NODE_ENV } from '../env';
@@ -15,7 +14,6 @@ export const authenDatabaseConnection = async () => {
         await connection.raw('SELECT 1');
         logger.info('Database connected');
     } catch (error) {
-        console.log(error);
-        logger.error(error);
+        logger.error(error.message);
     }
 };

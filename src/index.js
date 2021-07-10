@@ -5,7 +5,7 @@ import { EngineConfig } from './config';
 const app = express();
 
 (async () => {
-    (new EngineConfig(app)).init();
+    (new EngineConfig(app)).bundle();
 })();
 
 export default app;
