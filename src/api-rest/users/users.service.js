@@ -1,3 +1,4 @@
+import { logger } from 'common/utils';
 import { DuplicateException } from 'libs/http-exception/exceptions';
 import { UserRepository } from './user.repository';
 
@@ -11,6 +12,7 @@ export class UsersService {
         if (!UsersService.#instance) {
             UsersService.#instance = new UsersService(UserRepository.getSingleton());
         }
+        logger.info(`[${UsersService.name}] is bundling`);
         return UsersService.#instance;
     }
 

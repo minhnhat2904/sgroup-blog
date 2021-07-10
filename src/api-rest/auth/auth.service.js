@@ -1,5 +1,5 @@
 import { UsersService } from 'api-rest/users/users.service';
-import { BcryptService, JwtService } from 'common/utils';
+import { BcryptService, JwtService, logger } from 'common/utils';
 import { jwtPayload } from './dto/jwt-payload';
 import { profileResponse } from './dto/profile-response';
 
@@ -16,6 +16,7 @@ export class AuthService {
                 BcryptService,
                 JwtService,
             );
+            logger.info(`[${AuthService.name}] is bundling`);
         }
         return AuthService.#instance;
     }

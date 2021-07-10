@@ -1,3 +1,4 @@
+import { logger } from 'common/utils';
 import { knexConnection } from 'database';
 
 export class UserRepository {
@@ -9,6 +10,7 @@ export class UserRepository {
     static getSingleton() {
         if (!UserRepository.#instance) {
             UserRepository.#instance = new UserRepository(knexConnection.table('users'));
+            logger.info(`[${UserRepository.name}] is bundling`);
         }
         return UserRepository.#instance;
     }

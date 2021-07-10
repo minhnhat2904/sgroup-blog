@@ -6,7 +6,7 @@ class Jwt {
     constructor(secret, expiresIn) {
         this.secret = secret;
         this.expiresIn = expiresIn;
-        logger.info('initiate Jwt module');
+        logger.info('[JwtService] is bundling');
     }
 
     sign(payload) {

@@ -18,12 +18,12 @@ const logger = createLogger({
             format: combine(
                 simple(), splat(),
                 timestamp({
-                    format: 'DD-MM-YYY HH:mm:ss',
+                    format: 'HH:mm:ss DD-MM-YYYY',
                 }),
                 colorize(),
                 printf(log => {
                     if (log.stack) return `[${log.timestamp}] [${log.level}] ${log.stack}`;
-                    return `[${log.timestamp}] [${log.level}] ${log.message}`;
+                    return `\x1B[92m[${log.timestamp}] [${log.level}] ${log.message}`;
                 })
             )
         }),

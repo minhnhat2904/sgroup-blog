@@ -1,3 +1,4 @@
+import { logger } from 'common/utils';
 import { httpExceptionHandler } from 'libs/http-exception/handler/exception.handler';
 import { AuthService } from './auth.service';
 import { registerInput } from './dto/register-input';
@@ -11,6 +12,7 @@ export class AuthController {
     static getSingleton() {
         if (!AuthController.#instance) {
             AuthController.#instance = new AuthController(AuthService.getSingleton());
+            logger.info(`[${AuthController.name}] is bundling`);
         }
         return AuthController.#instance;
     }
