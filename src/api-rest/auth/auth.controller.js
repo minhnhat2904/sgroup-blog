@@ -1,6 +1,7 @@
 import { logger } from 'common/utils';
+import { OK } from 'http-status';
 import { httpExceptionHandler } from 'libs/http-exception/handler/exception.handler';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { registerInput } from './dto/register-input';
 
 export class AuthController {
@@ -29,9 +30,9 @@ export class AuthController {
     register = async (req, res) => {
         try {
             const data = await this.#authService.register(registerInput(req.body));
-            return res.status(200).json(data);
+            return res.status(OK).json(data);
         } catch (error) {
-            httpExceptionHandler(error)(res);
+            return httpExceptionHandler(error)(res);
         }
     }
 }

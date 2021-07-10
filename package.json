@@ -10,12 +10,13 @@
     "clean": "rm -rf dist && mkdir dist",
     "build:babel": "babel ./src --out-dir dist --copy-files",
     "build": "yarn run clean && yarn run build:babel",
-    "create:table": "node_modules/.bin/knex migrate:make",
-    "migrate:latest": "node_modules/.bin/knex migrate:latest",
-    "migrate:rollback": "node_modules/.bin/knex migrate:rollback",
+    "create:migration": "yarn knex migrate:make",
+    "migrate:latest": "yarn knex migrate:latest",
+    "migrate:rollback": "yarn knex migrate:rollback",
     "migrate:reset": "yarn run migrate:rollback && yarn run migrate:latest && yarn run seed:run",
-    "seed:run": "node_modules/.bin/knex seed:run",
-    "heroku-postbuild": "yarn install && yarn migrate:reset && yarn run build"
+    "seed:run": "yarn knex seed:run",
+    "heroku-postbuild": "yarn install && yarn migrate:reset && yarn run build",
+    "knex": "babel-node node_modules/knex/bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.12",
     "method-override": "^3.0.0",
+    "mysql": "^2.18.1",
     "pg": "^8.5.1",
     "pug": "^3.0.2",
     "winston": "^3.3.3"

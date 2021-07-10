@@ -12,7 +12,7 @@ export class EngineConfig {
 
     static VIEW_PATH = join(EngineConfig.ROOT_DIR, 'views');
 
-    static PUBLIC_PATH = join(EngineConfig.ROOT_DIR, 'public')
+    static PUBLIC_PATH = join(EngineConfig.ROOT_DIR, 'public/')
 
     /**
      * @param {import("express-serve-static-core").Express} app

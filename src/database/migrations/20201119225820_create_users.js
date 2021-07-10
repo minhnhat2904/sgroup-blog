@@ -2,32 +2,18 @@
 /**
  * @param {import("knex")} knex
  */
-exports.up = async knex => {
-    const tracsaction = await knex.transaction();
-    try {
-        await tracsaction.schema.createTable('users', table => {
-            table.increments('id').primary('id');
-            table.string('username').notNullable().unique('username');
-            table.string('fullname');
-            table.string('email');
-            table.string('password');
-            table.timestamps(true, true);
-        });
-        await tracsaction.commit();
-    } catch (error) {
-        await tracsaction.rollback();
-    }
-};
+export function up(knex) {
+    return knex.schema.createTable('users', table => {
+        table.increments('id').primary('id');
+        table.string('username').notNullable().unique('username');
+        table.string('fullname');
+        table.string('email');
+        table.string('password');
+        table.timestamps(true, true);
+    });
+}
 
 /**
  * @param {import("knex")} knex
  */
-exports.down = async knex => {
-    const tracsaction = await knex.transaction();
-    try {
-        await tracsaction.schema.dropTableIfExists('users');
-        await tracsaction.commit();
-    } catch (error) {
-        await tracsaction.rollback();
-    }
-};
+export function down(knex) { return knex.schema.dropTableIfExists('users'); }

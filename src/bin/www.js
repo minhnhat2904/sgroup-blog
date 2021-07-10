@@ -5,10 +5,11 @@
  * Module dependencies.
  */
 
+import { logger } from 'common/utils';
 import debug from 'debug';
 import http from 'http';
+import { ConfigService } from 'libs/config/config.service';
 import app from '..';
-import { PORT } from '../env';
 
 const dubugHelper = debug('adminlte:server');
 
@@ -36,7 +37,7 @@ function normalizePort(val) {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(PORT);
+const port = normalizePort(ConfigService.getSingleton().get('PORT'));
 app.set('port', port);
 
 /**
@@ -90,7 +91,7 @@ function onListening() {
  */
 
 server.listen(port, () => {
-    console.log(`Server is listening on ${port}`);
+    logger.info(`Server is listening on \x1B[31m${port}`);
 });
 server.on('error', onError);
 server.on('listening', onListening);

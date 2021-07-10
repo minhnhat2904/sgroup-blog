@@ -1,3 +1,4 @@
+// @ts-check
 import * as env from 'dotenv';
 import { NotFoundEnvKey } from './error/notfoundEnvKey';
 
@@ -8,13 +9,16 @@ export class ConfigService {
 
    cache = false;
 
+   /**
+     * @param {{ pathLookup?: string; cache?: boolean; }} config
+     */
    static config(config) {
        if (ConfigService.#instance) {
            throw new Error(
                `Class ${ConfigService.name} has been configured before`,
            );
        }
-       ConfigService.instance = new ConfigService();
+       ConfigService.#instance = new ConfigService();
 
        env.config({
            path: config.pathLookup,
@@ -24,6 +28,10 @@ export class ConfigService {
        }
    }
 
+   /**
+    * 
+    * @returns {ConfigService}
+    */
    static getSingleton() {
        return ConfigService.#instance;
    }
