@@ -24,6 +24,7 @@ exports.down = async knex => {
     try {
         await knex('users').delete().where('username', ['admin']);
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
     }
 };

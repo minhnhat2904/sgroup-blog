@@ -6,8 +6,8 @@ exports.up = async knex => {
     const tracsaction = await knex.transaction();
     try {
         await tracsaction.schema.createTable('users', table => {
-            table.increments('id');
-            table.string('username');
+            table.increments('id').primary('id');
+            table.string('username').notNullable().unique('username');
             table.string('fullname');
             table.string('email');
             table.string('password');

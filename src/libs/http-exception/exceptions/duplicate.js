@@ -1,5 +1,5 @@
 import { CONFLICT } from 'http-status';
-import { ERROR_CODE } from '../../common/enum';
+import { ERROR_CODE } from '../../../common/enum';
 import { HttpException } from './base';
 
 export class DuplicateException extends HttpException {
