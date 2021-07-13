@@ -3,57 +3,57 @@ import * as env from 'dotenv';
 import { NotFoundEnvKey } from './error/notfoundEnvKey';
 
 export class ConfigService {
-   static #instance;
+    static #instance;
 
-   store = {};
+    store = {};
 
-   cache = false;
+    cache = false;
 
-   /**
-     * @param {{ pathLookup?: string; cache?: boolean; }} config
+    /**
+      * @param {{ pathLookup?: string; cache?: boolean; }} config
+      */
+    static config(config) {
+        if (ConfigService.#instance) {
+            throw new Error(
+                `Class ${ConfigService.name} has been configured before`,
+            );
+        }
+        ConfigService.#instance = new ConfigService();
+
+        env.config({
+            path: config.pathLookup,
+        });
+        if (!config.cache) {
+            ConfigService.#instance.cache = false;
+        }
+    }
+
+    /**
+     * 
+     * @returns {ConfigService}
      */
-   static config(config) {
-       if (ConfigService.#instance) {
-           throw new Error(
-               `Class ${ConfigService.name} has been configured before`,
-           );
-       }
-       ConfigService.#instance = new ConfigService();
+    static getSingleton() {
+        return ConfigService.#instance;
+    }
 
-       env.config({
-           path: config.pathLookup,
-       });
-       if (!config.cache) {
-           ConfigService.#instance.cache = false;
-       }
-   }
+    get(key) {
+        if (this.cache) {
+            if (!this.store[key]) {
+                this.verifyKeyInProcess(key);
+                this.set(key, process.env[key]);
+            }
+            return this.store[key];
+        }
+        return process.env[key];
+    }
 
-   /**
-    * 
-    * @returns {ConfigService}
-    */
-   static getSingleton() {
-       return ConfigService.#instance;
-   }
+    set(key, value) {
+        this.store[key] = value;
+    }
 
-   get(key) {
-       if (this.cache) {
-           if (!this.store[key]) {
-               this.verifyKeyInProcess(key);
-               this.set(key, process.env[key]);
-           }
-           return this.store[key];
-       }
-       return process.env[key];
-   }
-
-   set(key, value) {
-       this.store[key] = value;
-   }
-
-   verifyKeyInProcess(key) {
-       if (!process.env[key]) {
-           throw new NotFoundEnvKey(key, process.env.NODE_ENV);
-       }
-   }
+    verifyKeyInProcess(key) {
+        if (!process.env[key]) {
+            throw new NotFoundEnvKey(key, process.env.NODE_ENV);
+        }
+    }
 }

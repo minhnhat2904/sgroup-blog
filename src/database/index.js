@@ -4,7 +4,6 @@ import config from '../../knexfile';
 import { logger } from '../common/utils';
 
 export const knexConnection = knex(config[ConfigService.getSingleton().get('NODE_ENV')]);
-
 export const getTransaction = () => knexConnection.transaction();
 
 export const authenDatabaseConnection = async () => {
