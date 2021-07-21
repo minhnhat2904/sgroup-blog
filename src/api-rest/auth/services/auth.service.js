@@ -1,5 +1,6 @@
 import { UsersService } from 'api-rest/users/users.service';
 import { logger } from 'common/utils';
+import { UnAuthorizedException } from 'libs/http-exception/exceptions';
 import { jwtPayload } from '../dto/jwt-payload';
 import { profileResponse } from '../dto/profile-response';
 import { BcryptService } from './bcrypt.service';
@@ -44,14 +45,30 @@ export class AuthService {
         this.#jwtService = jwtService;
     }
 
-    register(body) {
+    async register(body) {
         body.password = this.#bcryptService.hash(body.password);
 
-        const user = this.#userService.createOneAndReturn(body);
+        const userId = await this.#userService.createOneAndReturn(body);
+
+        return profileResponse(
+            {
+                id: userId,
+                ...body
+            },
+            this.#jwtService.sign(jwtPayload(userId, ['VISITOR']))
+        );
+    }
+
+    async login(body) {
+        const user = await this.#userService.getByUsernameWithRoles(body.username);
+
+        if (!user || !this.#bcryptService.compare(body.password, user.password)) {
+            throw new UnAuthorizedException('Username or password is incorrect');
+        }
 
         return profileResponse(
             user,
-            this.#jwtService.sign(jwtPayload(user.id, []))
+            this.#jwtService.sign(jwtPayload(user.id, user.roles))
         );
     }
 }

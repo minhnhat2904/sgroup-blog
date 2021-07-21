@@ -12,5 +12,6 @@ export const authenDatabaseConnection = async () => {
         logger.info('Database connected');
     } catch (error) {
         logger.error(error.message);
+        logger.error(error.stack);
     }
 };
