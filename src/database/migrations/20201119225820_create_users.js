@@ -9,7 +9,6 @@ export function up(knex) {
         table.string('fullname');
         table.string('email');
         table.string('password');
-        table.timestamps(true, true);
     });
 }
 
