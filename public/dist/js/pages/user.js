@@ -21,7 +21,7 @@ function PageItem(value) {
 async function callApiGetUser(query) {
     try {
         const response = await $.ajax({
-            url: 'http://localhost:3000/api/v1/users?' + query,
+            url: '/api/v1/users?' + query,
             method: 'GET'
         });
     

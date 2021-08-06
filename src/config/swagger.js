@@ -36,7 +36,7 @@ const options = {
             },
         },
         {
-            url: 'https://app-dev.herokuapp.com/api/v1',
+            url: 'https://blog-training-mn.herokuapp.com/api/v1',
             description: 'DEV Env',
         },
     ],
