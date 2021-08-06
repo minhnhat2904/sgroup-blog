@@ -35411,7 +35411,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #e9ecef;
+  background-color: #8db8e2;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -35427,6 +35427,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 .login-box,
 .register-box {
   width: 360px;
+  border-radius: 10px;
 }
 
 @media (max-width: 576px) {

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { Role } from "common/enum/role.enum";
+import { Role } from 'common/enum/role.enum';
 
 /**
  * @param {import("knex")} knex
